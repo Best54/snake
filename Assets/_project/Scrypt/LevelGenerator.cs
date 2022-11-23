@@ -43,8 +43,11 @@ public class LevelGenerator : MonoBehaviour
         rightWall.transform.position += new Vector3(_maxLengthLevel/2, 0, 0);
         leftWall.transform.localScale += new Vector3(_maxLengthLevel, 0, 0);
         leftWall.transform.position += new Vector3(_maxLengthLevel / 2, 0, 0);
-        downWall.transform.localScale += new Vector3(_maxLengthLevel, 0, 0);
-        downWall.transform.position += new Vector3(_maxLengthLevel / 2, 0, 0);
+        int colWater = _maxLengthLevel / 4;
+        for (int i = 1; i <= colWater; i++)
+        {
+            Instantiate(downWall, new Vector3(downWall.transform.position.x * i,0,0), Quaternion.identity, transform);
+        }
     }
 
     public void GenerateLevel()
@@ -90,7 +93,7 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
         }
-        finish.transform.position = new Vector3(_maxLengthLevel + 1, finish.transform.position.y, finish.transform.position.z);
+        finish.transform.position = new Vector3(_maxLengthLevel + sizeBetwenWallMin, finish.transform.position.y, finish.transform.position.z);
     }
 
     int Choose(float[] probsC)
