@@ -60,4 +60,9 @@ public class GameManager : MonoBehaviour
         panelLose.SetActive(false);
         tekLvlUI.text = "Level " + _tekLvl.ToString();
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
