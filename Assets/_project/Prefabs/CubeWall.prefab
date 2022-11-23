@@ -115,6 +115,7 @@ MonoBehaviour:
   numberText: {fileID: 1996884857731177398}
   blockWeightMin: 1
   blockWeightMax: 11
+  cubeDelPS: {fileID: 0}
 --- !u!54 &6386058621056627503
 Rigidbody:
   m_ObjectHideFlags: 0

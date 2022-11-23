@@ -9,7 +9,8 @@ public class Cubewall : MonoBehaviour
     private int _numberTail;
     public int blockWeightMin = 1;
     public int blockWeightMax = 11;
-    float colorStep = 0;
+    float colorStep = 0;    
+
     private void Awake()
     {
         int vilkaCube = blockWeightMax - blockWeightMin;
@@ -36,6 +37,7 @@ public class Cubewall : MonoBehaviour
             int tempNum = player.DelTailSnake(_numberTail);
             if (tempNum == _numberTail)
             {
+                player.PlayerBoomCube(transform.position + new Vector3(10, 0 , 0));
                 gameObject.SetActive(false);
                 player.PlayerVeloGo();
             }

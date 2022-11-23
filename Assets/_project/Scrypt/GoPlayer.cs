@@ -27,6 +27,10 @@ public class GoPlayer : MonoBehaviour
     private Vector3 _predBodySnakeTP;
     private Vector3 _startPosPlayer;
 
+    public ParticleSystem deathPS;
+    public ParticleSystem tailDelPS;
+    public ParticleSystem cubeDelPS;
+
     private void Awake()
     {
         _timing = movingDelay;
@@ -147,6 +151,7 @@ public class GoPlayer : MonoBehaviour
 
     private void DelNumSnake(int whyDel)
     {
+        tailDelPS.Play();
         Destroy(snake[whyDel], 0.01f);
         snake.RemoveAt(whyDel);
     }
@@ -166,24 +171,22 @@ public class GoPlayer : MonoBehaviour
     public void PlayerVeloZero() => enabled = false;
     public void PlayerVeloGo() => enabled = true;
 
-    /*public void PlayerBoomPlatform()
+    public void PlayerBoomCube(Vector3 pos)
     {
-        _audio.PlayOneShot(destroyPlatform, gM.sGM.effectsVolume);
-        countBoomPlatform++;
-    }*/
+        //   _audio.PlayOneShot(destroyPlatform, gM.sGM.effectsVolume);
+        cubeDelPS.transform.position = pos;
+        cubeDelPS.Play();
+    }
 
     public void IsDie()
     {
-        /*deathPS.Play();
-        _mrPlayer.enabled = false;*/        
+        deathPS.Play();        
         PlayerVeloZero();
         gM.GameLose();
     }
 
     public void IsWin()
     {
- /*       finishPS.transform.position = transform.position;
-        finishPS.Play();*/        
         PlayerVeloZero();
         gM.GameWin();
     }
