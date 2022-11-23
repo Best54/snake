@@ -5,9 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    /*   public ProgressGame progrGame;
-       public soundGM sGM;
-       public GameObject panelMenue;*/
+    public soundGM sGM;
     public GameObject gameUI;
     public int MaxLevel = 5;
     public GameObject panelWin;
@@ -24,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
         _tekLvl = 1;
 
-        if (/*panelMenue == null ||*/ gameUI == null || panelWin == null || panelLose == null)
+        if (gameUI == null || panelWin == null || panelLose == null)
         {
             Debug.Log("No put panel to script - StartSettingsScr");
         }
@@ -57,13 +55,9 @@ public class GameManager : MonoBehaviour
     {        
         cam.StartPos();
         player.GoToStart();
-        /*panelMenue.SetActive(false);*/
         gameUI.SetActive(true);
         panelWin.SetActive(false);
         panelLose.SetActive(false);
-        tekLvlUI.text = "Level " + _tekLvl.ToString();        
-        /*controls.LevelGenerate(numLvl);
-        progrGame.StartProgress();
-        controls.enabled = true;*/
+        tekLvlUI.text = "Level " + _tekLvl.ToString();
     }
 }
