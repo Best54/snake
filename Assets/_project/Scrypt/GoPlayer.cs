@@ -7,25 +7,30 @@ using TMPro;
 public class GoPlayer : MonoBehaviour
 {
     public GameManager gM;
-    public GameObject playerNoGo;
+    public GameObject playerNoGo; //для привязки хвостов к контейнеру игрока
+    //движение
     public float offsetPlayer = 1f;
     public float movingDelay = 0.3f;
+    public float speedPlayer = 0.1f;
+    public Vector3 direction;
     public GameObject bodySnake;
     public TextMeshPro sizeSnake;
-    public float speedPlayer = 1f;
-    public Vector3 direction;
+    public List<GameObject> snake = new List<GameObject>();
+    [Min(2)]
+    public int visibleTailSnake = 15; //оптимизация
 
     private bool _moveR = false;
     private bool _moveL = false;
     private bool _moveU = false;
     private bool _moveD = false;
-    private float _timing;
-    public List<GameObject> snake = new List<GameObject>();
+    private float _timing;    
     private GameObject _curBodySnake;
     private GameObject _predBodySnake;
     private Vector3 _curBodySnakeTP;
     private Vector3 _predBodySnakeTP;
     private Vector3 _startPosPlayer;
+    private int _tekSnakeCount;
+    private int _forVisibleSnake;
 
     public ParticleSystem deathPS;
     public ParticleSystem tailDelPS;
@@ -46,17 +51,25 @@ public class GoPlayer : MonoBehaviour
         SizeSnakeText(snake.Count - 1);
         _startPosPlayer = transform.position;
     }
+
+    private int OptimumLengthSnake()
+    {
+        _tekSnakeCount = snake.Count;
+        if (_tekSnakeCount < visibleTailSnake) return _tekSnakeCount;
+        else return visibleTailSnake;
+    }
     private void FixedUpdate()
     {
-        foreach (GameObject sn in snake)
-        {
-            sn.transform.Translate(direction.normalized * speedPlayer);
-        }
+        _forVisibleSnake = OptimumLengthSnake();
+        //движение вперёд
+        for (int i = 0; i<_forVisibleSnake; i++)        
+            snake[i].transform.Translate(direction.normalized * speedPlayer);
     }
     void Update()
     {
         //Чтобы не переполнился счётчик
         if (_timing < movingDelay * 10) _timing += Time.deltaTime;
+        //движения в стороны
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             _moveR = true;
         if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
@@ -108,7 +121,8 @@ public class GoPlayer : MonoBehaviour
 
     void MovingTail()
     {
-        for (int i=1; i<snake.Count; i++)
+        _forVisibleSnake = OptimumLengthSnake();
+        for (int i=1; i<_forVisibleSnake; i++)
         {
             _curBodySnake = snake[i];
             _predBodySnake = snake[i - 1];
@@ -133,6 +147,7 @@ public class GoPlayer : MonoBehaviour
         {
             float tekLength = snake.Count * bodySnake.transform.localScale.x + bodySnake.transform.localScale.x / 2f;
             snake.Add(Instantiate(bodySnake, transform.position + new Vector3(-tekLength, 0, 0), Quaternion.identity, playerNoGo.transform));
+            if (snake.Count > visibleTailSnake+1) snake[snake.Count-1].SetActive(false);
         }
         SizeSnakeText(snake.Count - 1);        
         PlayerVeloGo();

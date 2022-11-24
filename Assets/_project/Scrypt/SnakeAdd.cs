@@ -6,6 +6,7 @@ using TMPro;
 public class SnakeAdd : MonoBehaviour
 {    
     public TextMeshPro numberText;
+
     private int _numberTail;
 
     private void Awake()

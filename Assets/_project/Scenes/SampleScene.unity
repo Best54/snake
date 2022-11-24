@@ -2800,8 +2800,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sGM: {fileID: 1595023130}
-  gameUI: {fileID: 850837981}
   MaxLevel: 5
+  gameUI: {fileID: 850837981}
   panelWin: {fileID: 795617620}
   panelLose: {fileID: 1298404479}
   cam: {fileID: 963194229}
@@ -4151,11 +4151,12 @@ MonoBehaviour:
   playerNoGo: {fileID: 1110174144}
   offsetPlayer: 1
   movingDelay: 0.3
-  bodySnake: {fileID: 4896295473203853975, guid: d2f76347db6cc2d4dbd9ac89087b84b4, type: 3}
-  sizeSnake: {fileID: 751253805}
   speedPlayer: 0.1
   direction: {x: 50000, y: 0, z: 0}
+  bodySnake: {fileID: 4896295473203853975, guid: d2f76347db6cc2d4dbd9ac89087b84b4, type: 3}
+  sizeSnake: {fileID: 751253805}
   snake: []
+  visibleTailSnake: 15
   deathPS: {fileID: 1213772211}
   tailDelPS: {fileID: 1547217499}
   cubeDelPS: {fileID: 6515498829543484160}

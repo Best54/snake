@@ -12,7 +12,9 @@ public class LevelGenerator : MonoBehaviour
     public GameObject leftWall;
     public GameObject downWall;
 
+    [Min(5)]
     public int sizeBetwenWallMin = 15;
+    [Min(10)]
     public int sizeBetwenWallMax = 30;
 
     public float[] probs = new float[6];
@@ -99,12 +101,10 @@ public class LevelGenerator : MonoBehaviour
     int Choose(float[] probsC)
     {
         float total = 0;
-        float tekProbability = 0;
 
         foreach (float el in probsC) total += el;
 
-        tekProbability = Random.Range(0, total +1f);
-
+        float tekProbability = Random.Range(0, total + 1f);
         for (int i = 0; i<probsC.Length; i++)
         {
             tekProbability -= probsC[i];
