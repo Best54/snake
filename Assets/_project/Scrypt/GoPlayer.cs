@@ -43,6 +43,7 @@ public class GoPlayer : MonoBehaviour
         _audio = GetComponent<AudioSource>();
         _timing = movingDelay;
         snake.Add(gameObject);
+        SizeSnakeText(snake.Count - 1);
         _startPosPlayer = transform.position;
     }
     private void FixedUpdate()
@@ -119,6 +120,11 @@ public class GoPlayer : MonoBehaviour
         }
     }
 
+    private void SizeSnakeText(int count)
+    {
+        sizeSnake.text = count.ToString();
+    }
+
     public void AddTailSnake(int col)
     {
         PlayerVeloZero();
@@ -128,7 +134,7 @@ public class GoPlayer : MonoBehaviour
             float tekLength = snake.Count * bodySnake.transform.localScale.x + bodySnake.transform.localScale.x / 2f;
             snake.Add(Instantiate(bodySnake, transform.position + new Vector3(-tekLength, 0, 0), Quaternion.identity, playerNoGo.transform));
         }
-        sizeSnake.text = snake.Count.ToString();
+        SizeSnakeText(snake.Count - 1);        
         PlayerVeloGo();
     }
     public int DelTailSnake(int numberTail)
@@ -141,7 +147,7 @@ public class GoPlayer : MonoBehaviour
                 countDel++;
                 DelNumSnake(snake.Count - 1);
             }
-            sizeSnake.text = snake.Count.ToString();
+            SizeSnakeText(snake.Count - 1);
             IsDie();
             return countDel;
         }
@@ -152,7 +158,7 @@ public class GoPlayer : MonoBehaviour
             {
                 DelNumSnake(snake.Count - 1);
             }
-            sizeSnake.text = snake.Count.ToString();
+            SizeSnakeText(snake.Count - 1);
             PlayerVeloGo();
             return numberTail;
         }
@@ -160,7 +166,7 @@ public class GoPlayer : MonoBehaviour
 
     private void DelNumSnake(int whyDel)
     {
-        _audio.PlayOneShot(explosAC, gM.sGM.effectsVolume);
+        _audio.PlayOneShot(explosAC, gM.sGM.effectsVolume-0.35f);
         Destroy(snake[whyDel], 0.01f);
         snake.RemoveAt(whyDel);
     }
@@ -182,7 +188,7 @@ public class GoPlayer : MonoBehaviour
 
     public void PlayerBoomCube(Vector3 pos)
     {
-        _audio.PlayOneShot(saluteAC, gM.sGM.effectsVolume);
+        _audio.PlayOneShot(saluteAC, gM.sGM.effectsVolume - 0.2f);
         cubeDelPS.transform.position = pos;
         cubeDelPS.Play();
     }
@@ -191,7 +197,7 @@ public class GoPlayer : MonoBehaviour
     {
         deathPS.Play();        
         PlayerVeloZero();
-        _audio.PlayOneShot(loseAC, gM.sGM.effectsVolume);
+        _audio.PlayOneShot(loseAC, gM.sGM.effectsVolume+0.2f);
         gM.GameLose();
     }
 

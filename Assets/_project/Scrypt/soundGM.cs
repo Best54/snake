@@ -6,7 +6,7 @@ public class soundGM : MonoBehaviour
     [Min (0)]
     public float backgroundVolume;    
 
-    [Min(0)]
+    [Min(0.4f)]
     public float effectsVolume;
 
     private AudioSource _audioMuzik;

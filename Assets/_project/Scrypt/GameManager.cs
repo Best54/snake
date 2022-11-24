@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
             winText.text = "Поздравляем с прохождением 4-го уровня! Игра будет продолжена с 1-го уровня.";
             _tekLvl = 1;
         }
-        lvlGen.ReCreateLevel(_tekLvl);
     }
     public void GameLose()
     {
@@ -52,7 +51,8 @@ public class GameManager : MonoBehaviour
     public void ButtonNext() => StartLevel();
 
     private void StartLevel()
-    {        
+    {
+        if (panelWin.activeSelf) lvlGen.ReCreateLevel(_tekLvl);
         cam.StartPos();
         player.GoToStart();
         gameUI.SetActive(true);
